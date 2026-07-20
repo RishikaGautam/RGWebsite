@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rishika Gautam — Life</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Exo+2:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+:root{
+  --bg:#0f0d09;--surface:rgba(28,22,14,0.95);
+  --gold:#e8c078;--gold-border:rgba(232,192,120,0.22);--gold-dim:rgba(232,192,120,0.07);
+  --sage:#8fb89a;--sage-border:rgba(143,184,154,0.2);
+  --text:#f0e8dc;--text-muted:#a89880;--text-dim:#6a5c4c;
+  --font-hud:'Orbitron',monospace;--font-body:'Exo 2',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden;}
+
+#crane-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.3;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:1.2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;
+  background:linear-gradient(to bottom,rgba(15,13,9,0.96),transparent);
+  border-bottom:1px solid var(--gold-border);
+}
+.nav-back{font-family:var(--font-hud);font-size:0.6rem;color:var(--text-dim);text-decoration:none;letter-spacing:0.15em;transition:color 0.2s;}
+.nav-back:hover{color:var(--gold);}
+.nav-title{font-family:var(--font-hud);font-size:0.72rem;color:var(--gold);letter-spacing:0.28em;text-shadow:0 0 12px rgba(232,192,120,0.3);}
+.nav-hint{font-family:var(--font-hud);font-size:0.48rem;color:var(--text-dim);letter-spacing:0.15em;}
+
+/* ── SECTIONS ── */
+section{position:relative;z-index:1;}
+.section-inner{max-width:860px;margin:0 auto;padding:6rem 3rem;}
+
+/* ── HERO ── */
+#hero-life{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 2rem;}
+.life-eyebrow{font-family:var(--font-hud);font-size:0.58rem;color:var(--gold);letter-spacing:0.35em;margin-bottom:1.2rem;text-shadow:0 0 10px rgba(232,192,120,0.35);}
+.life-title{font-family:var(--font-hud);font-size:clamp(2.4rem,7vw,5.2rem);font-weight:700;color:#fff;letter-spacing:0.08em;line-height:1;margin-bottom:1.1rem;}
+.life-title em{color:var(--gold);font-style:normal;}
+.life-sub{font-size:1rem;color:var(--text-muted);line-height:1.9;max-width:500px;margin:0 auto 2.5rem;font-weight:300;}
+.scroll-cue{font-family:var(--font-hud);font-size:0.5rem;color:var(--text-dim);letter-spacing:0.22em;display:flex;flex-direction:column;align-items:center;gap:0.5rem;}
+.scroll-cue-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:glow-pulse 2s ease-in-out infinite;}
+@keyframes glow-pulse{0%,100%{box-shadow:0 0 4px var(--gold);opacity:0.4;}50%{box-shadow:0 0 14px var(--gold),0 0 28px rgba(232,192,120,0.3);opacity:1;}}
+
+/* ── DIVIDER ── */
+.warm-div{height:1px;background:linear-gradient(to right,transparent,var(--gold-border),transparent);max-width:860px;margin:0 auto;position:relative;z-index:1;}
+
+/* ── SECTION HEADERS ── */
+.life-header{display:flex;align-items:baseline;gap:1.2rem;margin-bottom:2.8rem;}
+.life-tag{font-family:var(--font-hud);font-size:0.55rem;color:var(--gold);letter-spacing:0.18em;}
+.life-hd{font-family:var(--font-hud);font-size:clamp(1.05rem,2.4vw,1.55rem);font-weight:600;letter-spacing:0.08em;color:var(--text);}
+.life-line{flex:1;height:1px;background:linear-gradient(to right,var(--gold-border),transparent);}
+
+/* ── ORIGIN ── */
+.origin-body{font-size:1rem;color:var(--text-muted);line-height:1.95;font-weight:300;max-width:660px;}
+.origin-body p{margin-bottom:1.25rem;}
+.origin-body strong{color:var(--text);font-weight:500;}
+.origin-body em{color:var(--gold);font-style:normal;}
+
+/* ── SECTION PROSE (shared) ── */
+.section-prose{font-size:0.98rem;color:var(--text-muted);line-height:1.9;font-weight:300;max-width:660px;margin-bottom:2rem;}
+.section-prose p{margin-bottom:1.1rem;}
+.section-prose p:last-child{margin-bottom:0;}
+.section-prose strong{color:var(--text);font-weight:500;}
+.section-prose em{color:var(--gold);font-style:normal;}
+
+/* ── PHOTO PLACEHOLDERS ── */
+.photo-placeholder{
+  background:rgba(232,192,120,0.04);
+  border:1px dashed rgba(232,192,120,0.25);
+  aspect-ratio:4/3;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;
+  font-family:var(--font-hud);font-size:0.52rem;color:var(--text-dim);
+  letter-spacing:0.15em;text-align:center;padding:1rem;
+  transition:border-color 0.2s,background 0.2s;
+}
+.photo-placeholder:hover{border-color:rgba(232,192,120,0.45);background:rgba(232,192,120,0.07);}
+.photo-placeholder span{font-size:0.44rem;opacity:0.55;font-family:var(--font-body);letter-spacing:0.05em;font-style:italic;}
+/* Once you drop in a real <img>, it fills the slot automatically */
+.photo-slot{overflow:hidden;position:relative;}
+.photo-slot img{width:100%;height:100%;object-fit:cover;display:block;}
+.photo-caption{font-family:var(--font-hud);font-size:0.5rem;color:var(--text-dim);letter-spacing:0.12em;margin-top:0.45rem;}
+
+/* ── PHOTO GRIDS ── */
+.photo-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.photo-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:0.85rem;}
+
+/* ── TRAVEL ── */
+.travel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:1rem;}
+.travel-card{position:relative;}
+.travel-card .place-label{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(transparent,rgba(15,13,9,0.88));
+  font-family:var(--font-hud);font-size:0.55rem;color:var(--text);
+  letter-spacing:0.12em;padding:0.75rem 0.75rem 0.55rem;
+}
+
+/* ── INDIA 2026 SUBSECTION ── */
+.india-block{margin-top:3rem;padding-top:2.5rem;border-top:1px solid var(--gold-border);}
+.india-label{
+  font-family:var(--font-hud);font-size:0.6rem;color:var(--gold);
+  letter-spacing:0.22em;margin-bottom:1rem;
+  text-shadow:0 0 10px rgba(232,192,120,0.3);
+}
+.india-label::before{content:'★  ';}
+.india-summary{font-size:0.96rem;color:var(--text-muted);line-height:1.9;font-weight:300;max-width:640px;margin-bottom:1.75rem;}
+.india-summary p{margin-bottom:1rem;}
+.india-summary p:last-child{margin-bottom:0;}
+.india-summary strong{color:var(--text);font-weight:500;}
+.india-hero{margin-bottom:1rem;}
+.india-hero .photo-placeholder{aspect-ratio:16/7;}
+
+/* ── SPOTIFY ── */
+.spotify-block{margin-top:2rem;}
+.spotify-embed{border:1px solid var(--gold-border);overflow:hidden;border-radius:2px;margin-bottom:0.75rem;}
+.spotify-embed iframe{display:block;}
+.spotify-link{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  font-family:var(--font-hud);font-size:0.6rem;color:var(--gold);
+  text-decoration:none;letter-spacing:0.15em;
+  border:1px solid var(--gold-border);padding:0.55rem 1.2rem;
+  transition:background 0.2s,box-shadow 0.2s;
+}
+.spotify-link:hover{background:rgba(232,192,120,0.06);box-shadow:0 0 16px rgba(232,192,120,0.15);}
+.spotify-link::before{content:'♫  ';}
+
+/* ── QUOTE ── */
+.life-quote{border-left:2px solid var(--gold-border);padding:1.5rem 2rem;position:relative;}
+.life-quote::before{content:'\201C';font-family:Georgia,serif;font-size:4rem;color:rgba(232,192,120,0.12);position:absolute;top:-0.4rem;left:0.4rem;line-height:1;}
+.quote-text{font-size:1.05rem;color:var(--text-muted);line-height:1.9;font-weight:300;font-style:italic;margin-bottom:0.75rem;}
+.quote-attr{font-family:var(--font-hud);font-size:0.52rem;color:var(--text-dim);letter-spacing:0.15em;}
+
+/* ── FOOTER ── */
+.life-foot{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:1.75rem 3rem;border-top:1px solid var(--gold-border);display:flex;justify-content:space-between;align-items:center;}
+.foot-id{font-family:var(--font-hud);font-size:0.5rem;color:var(--text-dim);letter-spacing:0.12em;}
+.foot-back{font-family:var(--font-hud);font-size:0.55rem;color:var(--gold);text-decoration:none;letter-spacing:0.15em;border:1px solid var(--gold-border);padding:0.5rem 1.1rem;transition:background 0.2s,box-shadow 0.2s;}
+.foot-back:hover{background:rgba(232,192,120,0.06);box-shadow:0 0 16px rgba(232,192,120,0.14);}
+
+.fade-in{opacity:0;transform:translateY(16px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.25rem;}.nav-hint{display:none;}
+  .section-inner{padding:4rem 1.5rem;}
+  .photo-grid-2,.photo-grid-3{grid-template-columns:1fr 1fr;}
+  .travel-grid{grid-template-columns:1fr 1fr;}
+  .life-foot{flex-direction:column;gap:1rem;text-align:center;}
+}
+@media(max-width:480px){
+  .photo-grid-3{grid-template-columns:1fr;}
+  .travel-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="crane-canvas"></canvas>
+
+<nav>
+  <a href="main.html" class="nav-back">← PORTFOLIO</a>
+  <div class="nav-title">MY STORY</div>
+  <div class="nav-hint">SECRET CHANNEL · TYPE "PORTFOLIO" TO RETURN</div>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero-life">
+  <div>
+    <div class="life-eyebrow">[ UNLOCKED · PERSONAL CHANNEL ]</div>
+    <h1 class="life-title">THE HUMAN<br>BEHIND THE <em>CODE</em></h1>
+    <p class="life-sub">You found the other page. No projects, no bullet points — just what I care about, what shaped me, and what's alive right now. Welcome in.</p>
+    <div class="scroll-cue"><span>EXPLORE</span><div class="scroll-cue-dot"></div></div>
+  </div>
+</section>
+
+<div class="warm-div"></div>
+
+<!-- ── 01 · ORIGIN STORY ── -->
+<section id="origin">
+  <div class="section-inner fade-in">
+    <div class="life-header">
+      <span class="life-tag">01</span>
+      <h2 class="life-hd">ORIGIN STORY</h2>
+      <div class="life-line"></div>
+    </div>
+    <div class="origin-body">
+      <!-- CUSTOMIZE: Replace with your own story -->
+      <p>I grew up between two worlds — the warmth of family and the cold glow of a computer screen I kept sneaking back to. The first time code I wrote actually <em>did something</em>, I felt like I'd discovered a superpower hidden in plain sight.</p>
+      <p>I'm the kind of person who asks <strong>"why does this work?"</strong> before "how do I make it work." Math was my first love — it was honest, it didn't care about your feelings, only whether you were right.</p>
+      <p>NYU brought me to New York City, which turned out to be exactly the kind of chaos I needed. There's something about a city that never stops that makes you want to build things that matter.</p>
+    </div>
+  </div>
+</section>
+
+<div class="warm-div"></div>
+
+<!-- ── 02 · TRAVELING EXPERIENCES ── -->
+<section id="travel">
+  <div class="section-inner fade-in">
+    <div class="life-header">
+      <span class="life-tag">02</span>
+      <h2 class="life-hd">TRAVELING EXPERIENCES</h2>
+      <div class="life-line"></div>
+    </div>
+    <div class="section-prose">
+      <!-- CUSTOMIZE: Brief intro on what travel means to you -->
+      <p>[Write a short paragraph about what travel means to you — how it shapes how you think, what you look for in a place, etc.]</p>
+    </div>
+
+    <!-- CUSTOMIZE: Add a travel-card for each place. Duplicate the block below. -->
+    <div class="travel-grid">
+      <div class="travel-card photo-slot">
+        <div class="photo-placeholder">INSERT PHOTO<span>place-1.jpg</span></div>
+        <div class="place-label">PLACE NAME</div>
+      </div>
+      <div class="travel-card photo-slot">
+        <div class="photo-placeholder">INSERT PHOTO<span>place-2.jpg</span></div>
+        <div class="place-label">PLACE NAME</div>
+      </div>
+      <div class="travel-card photo-slot">
+        <div class="photo-placeholder">INSERT PHOTO<span>place-3.jpg</span></div>
+        <div class="place-label">PLACE NAME</div>
+      </div>
+      <div class="travel-card photo-slot">
+        <div class="photo-placeholder">INSERT PHOTO<span>place-4.jpg</span></div>
+        <div class="place-label">PLACE NAME</div>
+      </div>
+    </div>
+
+    <!-- ── India 2026 · Featured Subsection ── -->
+    <div class="india-block">
+      <div class="india-label">MOST MEANINGFUL TRIP &nbsp;·&nbsp; INDIA 2026</div>
+
+      <!-- CUSTOMIZE: Your India trip summary -->
+      <div class="india-summary">
+        <p>[Write your India trip summary here — what you did, where you went, what you felt, what you learned. This is the most personal section, so let it breathe.]</p>
+        <p>[Add a second paragraph if you'd like. Strong, Rishika for anything you want to call out.]</p>
+      </div>
+
+      <!-- Full-width hero photo for India -->
+      <div class="india-hero photo-slot">
+        <div class="photo-placeholder">INSERT HERO PHOTO<span>india-hero.jpg · recommended 3:1 landscape</span></div>
+      </div>
+
+      <!-- CUSTOMIZE: India gallery — add up to 6 photos, duplicate photo-slot blocks -->
+      <div class="photo-grid-3">
+        <div class="photo-slot">
+          <div class="photo-placeholder">INSERT PHOTO<span>india-1.jpg</span></div>
+          <div class="photo-caption">CAPTION</div>
+        </div>
+        <div class="photo-slot">
+          <div class="photo-placeholder">INSERT PHOTO<span>india-2.jpg</span></div>
+          <div class="photo-caption">CAPTION</div>
+        </div>
+        <div class="photo-slot">
+          <div class="photo-placeholder">INSERT PHOTO<span>india-3.jpg</span></div>
+          <div class="photo-caption">CAPTION</div>
+        </div>
+        <div class="photo-slot">
+          <div class="photo-placeholder">INSERT PHOTO<span>india-4.jpg</span></div>
+          <div class="photo-caption">CAPTION</div>
+        </div>
+        <div class="photo-slot">
+          <div class="photo-placeholder">INSERT PHOTO<span>india-5.jpg</span></div>
+          <div class="photo-caption">CAPTION</div>
+        </div>
+        <div class="photo-slot">
+          <div class="photo-placeholder">INSERT PHOTO<span>india-6.jpg</span></div>
+          <div class="photo-caption">CAPTION</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="warm-div"></div>
+
+<!-- ── 03 · FILMMAKING & STORYTELLING ── -->
+<section id="film">
+  <div class="section-inner fade-in">
+    <div class="life-header">
+      <span class="life-tag">03</span>
+      <h2 class="life-hd">FILMMAKING & STORYTELLING</h2>
+      <div class="life-line"></div>
+    </div>
+    <div class="section-prose">
+      <!-- CUSTOMIZE: Your background in filmmaking and what draws you to visual storytelling -->
+      <p>[Write about your passion for filmmaking here — when it started, what it means to you, what kinds of stories you want to tell.]</p>
+      <p>[Add more context if needed — projects, style, inspirations.]</p>
+    </div>
+
+    <!-- CUSTOMIZE: Add/remove photo-slot blocks. 2-column grid. -->
+    <div class="photo-grid-2">
+      <div class="photo-slot">
+        <div class="photo-placeholder">INSERT PHOTO<span>film-1.jpg</span></div>
+        <div class="photo-caption">CAPTION</div>
+      </div>
+      <div class="photo-slot">
+        <div class="photo-placeholder">INSERT PHOTO<span>film-2.jpg</span></div>
+        <div class="photo-caption">CAPTION</div>
+      </div>
+      <div class="photo-slot">
+        <div class="photo-placeholder">INSERT PHOTO<span>film-3.jpg</span></div>
+        <div class="photo-caption">CAPTION</div>
+      </div>
+      <div class="photo-slot">
+        <div class="photo-placeholder">INSERT PHOTO<span>film-4.jpg</span></div>
+        <div class="photo-caption">CAPTION</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="warm-div"></div>
+
+<!-- ── 04 · PASSION FOR MUSIC ── -->
+<section id="music">
+  <div class="section-inner fade-in">
+    <div class="life-header">
+      <span class="life-tag">04</span>
+      <h2 class="life-hd">PASSION FOR MUSIC</h2>
+      <div class="life-line"></div>
+    </div>
+    <div class="section-prose">
+      <!-- CUSTOMIZE: Piano since age 5, music making, what music means to you -->
+      <p>I've played piano since I was <strong>five years old</strong>. [Continue — what it was like growing up with it, how it felt, what genres you explored.]</p>
+      <p>[Talk about how you've evolved from playing to making music — production, genres, tools you use, what you like to create now.]</p>
+    </div>
+
+    <div class="spotify-block">
+      <!-- Embedded Spotify player -->
+      <!-- CUSTOMIZE: Replace YOUR_SPOTIFY_USERNAME with your actual Spotify username or playlist ID -->
+      <!-- To embed a playlist instead: src="https://open.spotify.com/embed/playlist/PLAYLIST_ID" -->
+      <div class="spotify-embed">
+        <iframe
+          src="https://open.spotify.com/embed/show/033QkaBZgbtp0AQuEW1WIm?utm_source=generator&si=4641f12740a14b5a"
+          width="100%"
+          height="352"
+          frameborder="0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy">
+        </iframe>
+      </div>
+      <!-- CUSTOMIZE: Replace href with your Spotify profile URL -->
+      <a href="https://open.spotify.com/user/YOUR_SPOTIFY_USERNAME" target="_blank" rel="noopener" class="spotify-link">
+        OPEN ON SPOTIFY
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="warm-div"></div>
+
+<!-- ── 05 · THE OUTDOORS ── -->
+<section id="outdoors">
+  <div class="section-inner fade-in">
+    <div class="life-header">
+      <span class="life-tag">05</span>
+      <h2 class="life-hd">THE OUTDOORS</h2>
+      <div class="life-line"></div>
+    </div>
+    <div class="section-prose">
+      <!-- CUSTOMIZE: PNW hiking background + NYC Citi Bike -->
+      <p>Growing up in the <strong>Pacific Northwest</strong> gave me a baseline of trails, mountains, and overcast skies I'll never stop chasing. [Continue — favorite hikes, what the PNW means to you, specific trails or moments.]</p>
+      <p>In NYC, <em>Citi Bike</em> is my answer. [Continue — how you use it, favorite routes, what it gives you in the city.]</p>
+    </div>
+
+    <!-- CUSTOMIZE: Add photos — 3-column grid. Duplicate photo-slot blocks as needed. -->
+    <div class="photo-grid-3">
+      <div class="photo-slot">
+        <div class="photo-placeholder">INSERT PHOTO<span>outdoors-1.jpg</span></div>
+        <div class="photo-caption">LOCATION</div>
+      </div>
+      <div class="photo-slot">
+        <div class="photo-placeholder">INSERT PHOTO<span>outdoors-2.jpg</span></div>
+        <div class="photo-caption">LOCATION</div>
+      </div>
+      <div class="photo-slot">
+        <div class="photo-placeholder">INSERT PHOTO<span>outdoors-3.jpg</span></div>
+        <div class="photo-caption">LOCATION</div>
+      </div>
+      <div class="photo-slot">
+        <div class="photo-placeholder">INSERT PHOTO<span>outdoors-4.jpg</span></div>
+        <div class="photo-caption">LOCATION</div>
+      </div>
+      <div class="photo-slot">
+        <div class="photo-placeholder">INSERT PHOTO<span>outdoors-5.jpg</span></div>
+        <div class="photo-caption">LOCATION</div>
+      </div>
+      <div class="photo-slot">
+        <div class="photo-placeholder">INSERT PHOTO<span>outdoors-6.jpg</span></div>
+        <div class="photo-caption">LOCATION</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="warm-div"></div>
+
+<!-- ── 06 · A GUIDING THOUGHT ── -->
+<section id="philosophy">
+  <div class="section-inner fade-in">
+    <div class="life-header">
+      <span class="life-tag">06</span>
+      <h2 class="life-hd">A GUIDING THOUGHT</h2>
+      <div class="life-line"></div>
+    </div>
+    <!-- CUSTOMIZE: Replace with something that actually resonates with you -->
+    <div class="life-quote">
+      <p class="quote-text">"The most important thing is to not stop questioning. Curiosity has its own reason for existing."</p>
+      <div class="quote-attr">— ALBERT EINSTEIN</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="life-foot">
+    <span class="foot-id">RISHIKA GAUTAM · LIFE.HTML · NYC · 2026</span>
+    <a href="main.html" class="foot-back">← BACK TO MAIN.HTML</a>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ── Origami crane builder ─────────────────────────────────────
+function makeCrane(c1,c2){
+  c1=c1||0xf5e6d0; c2=c2||0xd4a860;
+  const g=new THREE.Group();
+  const m1=new THREE.MeshPhongMaterial({color:c1,side:THREE.DoubleSide,flatShading:true,shininess:18});
+  const m2=new THREE.MeshPhongMaterial({color:c2,side:THREE.DoubleSide,flatShading:true,shininess:10});
+  function tri(v,m){
+    const geo=new THREE.BufferGeometry();
+    geo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(v),3));
+    geo.computeVertexNormals();
+    return new THREE.Mesh(geo,m||m1);
+  }
+  const sp=[0,.5,0],bl=[0,-.45,0],lf=[-0.3,.08,0],rf=[.3,.08,0],ct=[0,0,0];
+  g.add(tri([...sp,...lf,...ct]));
+  g.add(tri([...sp,...ct,...rf]));
+  g.add(tri([...ct,...lf,...bl],m2));
+  g.add(tri([...ct,...bl,...rf],m2));
+  g.add(tri([...sp,0,.28,.22,0,.1,1.0]));
+  g.add(tri([...sp,0,.1,1.0,0,.28,.22]));
+  g.add(tri([...sp,0,.28,-.22,0,.1,-1.0],m2));
+  g.add(tri([...sp,0,.1,-1.0,0,.28,-.22],m2));
+  const lw=new THREE.Group(); lw.position.set(...lf);
+  lw.add(tri([0,0,0,sp[0]-lf[0],sp[1]-lf[1],0,-0.9,.35,0]));
+  g.add(lw);
+  const rw=new THREE.Group(); rw.position.set(...rf);
+  rw.add(tri([0,0,0,sp[0]-rf[0],sp[1]-rf[1],0,0.9,.35,0]));
+  g.add(rw);
+  return {mesh:g,lWing:lw,rWing:rw};
+}
+
+// ── Background flock ──────────────────────────────────────────
+const cvs=document.getElementById('crane-canvas');
+const ren=new THREE.WebGLRenderer({canvas:cvs,antialias:true,alpha:true});
+ren.setPixelRatio(Math.min(devicePixelRatio,2));
+ren.setSize(innerWidth,innerHeight);
+ren.setClearColor(0,0);
+
+const scene=new THREE.Scene();
+const cam=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,100);
+cam.position.set(0,0,12);
+
+scene.add(new THREE.AmbientLight(0xfff5e0,.55));
+const dl=new THREE.DirectionalLight(0xffd080,.9); dl.position.set(3,5,4); scene.add(dl);
+const dl2=new THREE.DirectionalLight(0x90b0ff,.3); dl2.position.set(-3,-2,2); scene.add(dl2);
+
+const PALETTE=[
+  [0xf5e6d0,0xd4a860],[0xece0cc,0xc89850],
+  [0xf0dcc4,0xd09860],[0xe8d8c0,0xc48848],
+  [0xf8eed8,0xe0b060],[0xf2e2c8,0xcc9858],
+  [0xeadac0,0xc49050],[0xf6ecd4,0xdcac68],
+];
+
+const flock=[];
+for(let i=0;i<8;i++){
+  const [c1,c2]=PALETTE[i];
+  const {mesh,lWing,rWing}=makeCrane(c1,c2);
+  const sc=0.18+Math.random()*0.48;
+  mesh.scale.setScalar(sc);
+  mesh.position.set((Math.random()-0.5)*30,(Math.random()-0.5)*14,-1-Math.random()*7);
+  mesh.rotation.y=Math.PI/2;
+  mesh.rotation.z=(Math.random()-0.5)*0.22;
+  mesh.rotation.x=(Math.random()-0.5)*0.1;
+  scene.add(mesh);
+  flock.push({
+    mesh,lWing,rWing,
+    speed:0.55+Math.random()*1.1,
+    flapF:4+Math.random()*6,
+    phase:Math.random()*Math.PI*2,
+    yAmp:0.25+Math.random()*0.45,
+    yFreq:0.4+Math.random()*0.9,
+  });
+}
+
+window.addEventListener('resize',()=>{
+  cam.aspect=innerWidth/innerHeight;
+  cam.updateProjectionMatrix();
+  ren.setSize(innerWidth,innerHeight);
+});
+
+let elapsed=0,lastT=performance.now();
+(function loop(){
+  requestAnimationFrame(loop);
+  const now=performance.now();
+  const dt=Math.min((now-lastT)/1000,.05); lastT=now;
+  elapsed+=dt;
+  flock.forEach(b=>{
+    b.mesh.position.x+=b.speed*dt;
+    b.mesh.position.y+=Math.sin(elapsed*b.yFreq+b.phase)*b.yAmp*dt;
+    if(b.mesh.position.x>17){ b.mesh.position.x=-17; b.mesh.position.y=(Math.random()-0.5)*12; }
+    const f=Math.sin(elapsed*b.flapF+b.phase)*0.42;
+    b.lWing.rotation.z=-f; b.rWing.rotation.z=f;
+  });
+  ren.render(scene,cam);
+})();
+
+// ── Scroll fade ───────────────────────────────────────────────
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+// ── Type "code" to return to main.html ───────────────────────
+let _buf='';
+document.addEventListener('keydown',e=>{
+  if(e.ctrlKey||e.altKey||e.metaKey){_buf='';return;}
+  _buf+=e.key.toLowerCase();
+  if(_buf.length>6)_buf=_buf.slice(-6);
+  if(_buf.includes('portfolio')){_buf='';window.location.href='main.html';}
+});
+</script>
+</body>
+</html>
