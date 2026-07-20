@@ -160,7 +160,7 @@ section{position:relative;z-index:1;}
 <canvas id="crane-canvas"></canvas>
 
 <nav>
-  <a href="main.html" class="nav-back">← PORTFOLIO</a>
+  <a href="index.html" class="nav-back">← PORTFOLIO</a>
   <div class="nav-title">MY STORY</div>
   <div class="nav-hint">SECRET CHANNEL · TYPE "PORTFOLIO" TO RETURN</div>
 </nav>
@@ -418,7 +418,7 @@ section{position:relative;z-index:1;}
 <footer>
   <div class="life-foot">
     <span class="foot-id">RISHIKA GAUTAM · LIFE.HTML · NYC · 2026</span>
-    <a href="main.html" class="foot-back">← BACK TO MAIN.HTML</a>
+    <a href="index.html" class="foot-back">← BACK TO PORTFOLIO</a>
   </div>
 </footer>
 
@@ -523,13 +523,13 @@ let elapsed=0,lastT=performance.now();
 const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
 document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
 
-// ── Type "code" to return to main.html ───────────────────────
+// ── Type "code" to return to index.html ───────────────────────
 let _buf='';
 document.addEventListener('keydown',e=>{
   if(e.ctrlKey||e.altKey||e.metaKey){_buf='';return;}
   _buf+=e.key.toLowerCase();
   if(_buf.length>6)_buf=_buf.slice(-6);
-  if(_buf.includes('portfolio')){_buf='';window.location.href='main.html';}
+  if(_buf.includes('portfolio')){_buf='';window.location.href='index.html';}
 });
 </script>
 </body>
