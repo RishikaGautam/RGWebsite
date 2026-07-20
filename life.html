@@ -528,7 +528,7 @@ let _buf='';
 document.addEventListener('keydown',e=>{
   if(e.ctrlKey||e.altKey||e.metaKey){_buf='';return;}
   _buf+=e.key.toLowerCase();
-  if(_buf.length>6)_buf=_buf.slice(-6);
+  if(_buf.length>15)_buf=_buf.slice(-15);
   if(_buf.includes('portfolio')){_buf='';window.location.href='index.html';}
 });
 </script>
