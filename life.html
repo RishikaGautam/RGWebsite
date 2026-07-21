@@ -71,7 +71,7 @@ section{position:relative;z-index:1;}
 .photo-placeholder{
   background:rgba(232,192,120,0.04);
   border:1px dashed rgba(232,192,120,0.25);
-  aspect-ratio:4/3;
+  width:100%;height:100%;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;
   font-family:var(--font-hud);font-size:0.52rem;color:var(--text-dim);
   letter-spacing:0.15em;text-align:center;padding:1rem;
@@ -79,10 +79,27 @@ section{position:relative;z-index:1;}
 }
 .photo-placeholder:hover{border-color:rgba(232,192,120,0.45);background:rgba(232,192,120,0.07);}
 .photo-placeholder span{font-size:0.44rem;opacity:0.55;font-family:var(--font-body);letter-spacing:0.05em;font-style:italic;}
-/* Once you drop in a real <img>, it fills the slot automatically */
-.photo-slot{overflow:hidden;position:relative;}
-.photo-slot img{width:100%;height:100%;object-fit:cover;display:block;}
-.photo-caption{font-family:var(--font-hud);font-size:0.5rem;color:var(--text-dim);letter-spacing:0.12em;margin-top:0.45rem;}
+
+/* ── PHOTO SLOT ── */
+/* Container defines the aspect-ratio; image fills it absolutely */
+.photo-slot{
+  position:relative;
+  aspect-ratio:4/3;
+  overflow:hidden;
+}
+.photo-slot img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;display:block;
+}
+/* Caption overlays image bottom (since slot clips overflow) */
+.photo-caption{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:0.55rem 0.65rem 0.4rem;
+  background:linear-gradient(transparent,rgba(15,13,9,0.72));
+  font-family:var(--font-hud);font-size:0.52rem;color:var(--text);
+  letter-spacing:0.14em;
+}
 
 /* ── PHOTO GRIDS ── */
 .photo-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
@@ -90,7 +107,16 @@ section{position:relative;z-index:1;}
 
 /* ── TRAVEL ── */
 .travel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:1rem;}
-.travel-card{position:relative;}
+.travel-card{
+  position:relative;
+  aspect-ratio:4/3;
+  overflow:hidden;
+}
+.travel-card > img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;display:block;
+}
 .travel-card .place-label{
   position:absolute;bottom:0;left:0;right:0;
   background:linear-gradient(transparent,rgba(15,13,9,0.88));
@@ -110,8 +136,8 @@ section{position:relative;z-index:1;}
 .india-summary p{margin-bottom:1rem;}
 .india-summary p:last-child{margin-bottom:0;}
 .india-summary strong{color:var(--text);font-weight:500;}
-.india-hero{margin-bottom:1rem;}
-.india-hero .photo-placeholder{aspect-ratio:16/7;}
+.india-hero{margin-bottom:1rem;aspect-ratio:16/7;}
+.india-hero .photo-placeholder{width:100%;height:100%;aspect-ratio:unset;}
 
 /* ── SPOTIFY ── */
 .spotify-block{margin-top:2rem;}
@@ -169,8 +195,8 @@ section{position:relative;z-index:1;}
 <section id="hero-life">
   <div>
     <div class="life-eyebrow">[ UNLOCKED · PERSONAL CHANNEL ]</div>
-    <h1 class="life-title">THE HUMAN<br>BEHIND THE <em>CODE</em></h1>
-    <p class="life-sub">You found the other page. No projects, no bullet points — just what I care about, what shaped me, and what's alive right now. Welcome in.</p>
+    <h1 class="life-title">THE HUMAN<br>BEHIND THE <em>RESUME</em></h1>
+    <p class="life-sub">Welcome in.</p>
     <div class="scroll-cue"><span>EXPLORE</span><div class="scroll-cue-dot"></div></div>
   </div>
 </section>
@@ -186,11 +212,10 @@ section{position:relative;z-index:1;}
       <div class="life-line"></div>
     </div>
     <div class="origin-body">
-      <!-- CUSTOMIZE: Replace with your own story -->
-      <p>I grew up between two worlds — the warmth of family and the cold glow of a computer screen I kept sneaking back to. The first time code I wrote actually <em>did something</em>, I felt like I'd discovered a superpower hidden in plain sight.</p>
-      <p>I'm the kind of person who asks <strong>"why does this work?"</strong> before "how do I make it work." Math was my first love — it was honest, it didn't care about your feelings, only whether you were right.</p>
-      <p>NYU brought me to New York City, which turned out to be exactly the kind of chaos I needed. There's something about a city that never stops that makes you want to build things that matter.</p>
-    </div>
+      <p>As a child, the only thing I ever really did was ask questions. I took apart pens, toys, and anything else within reach, just to understand how it worked and what it was for. I was endlessly curious about how things functioned, how life worked, and I was always chasing the <em>core truth</em> underneath.</p>
+      <p>That instinct led me straight to computer science. The first thing I ever taught myself to do on a computer was open up an HTML page and <strong>inspect it</strong> — exploring the code and components hidden underneath. By high school I'd fallen in love with coding: the way you could break any website or program down into its smallest units, and then turn around and build something entirely new. I started making simple games, and that love of creating only grew.</p>
+      <p>But it never stayed confined to code. My curiosity spilled into everything. How do cameras work? What are the rules behind photography and filmmaking? What can I make in music — whether it's a beat or my own notes on the piano? How does life actually work, and how do different cultures live it?</p>
+      <p>The pattern was always the same: <strong>take something apart, understand each piece, put it back together — then push it one step further.</strong> What does this mean? And how could it be better?</p>
   </div>
 </section>
 
@@ -205,70 +230,64 @@ section{position:relative;z-index:1;}
       <div class="life-line"></div>
     </div>
     <div class="section-prose">
-      <!-- CUSTOMIZE: Brief intro on what travel means to you -->
-      <p>[Write a short paragraph about what travel means to you — how it shapes how you think, what you look for in a place, etc.]</p>
+      <p>Traveling has always been a core part of my life. It has widened the way I perceive the world and pushed me to <strong>question my own way of living</strong> and understand my values more concretely. I've road-tripped through around 20 states across America and traveled to countries in Europe and Central America, and each trip has expanded my sense of what life is — and what its <em>"meaning"</em> might be.</p>
     </div>
 
-    <!-- CUSTOMIZE: Add a travel-card for each place. Duplicate the block below. -->
+   <!-- CUSTOMIZE: Add a travel-card for each place. Duplicate the block below. -->
     <div class="travel-grid">
-      <div class="travel-card photo-slot">
-        <div class="photo-placeholder">INSERT PHOTO<span>place-1.jpg</span></div>
-        <div class="place-label">PLACE NAME</div>
+      <div class="travel-card">
+        <img src="travelingPhotos/22F88F1E-6B14-4843-A0A8-9E644E45049B_1_105_c.jpeg" alt="Cumieira, Portugal">
+        <div class="place-label">Cumieira, Portugal</div>
       </div>
-      <div class="travel-card photo-slot">
-        <div class="photo-placeholder">INSERT PHOTO<span>place-2.jpg</span></div>
-        <div class="place-label">PLACE NAME</div>
+      <div class="travel-card">
+        <img src="travelingPhotos/IMG_0413.JPG" alt="Nevada, USA">
+        <div class="place-label">Nevada, USA</div>
       </div>
-      <div class="travel-card photo-slot">
-        <div class="photo-placeholder">INSERT PHOTO<span>place-3.jpg</span></div>
-        <div class="place-label">PLACE NAME</div>
+      <div class="travel-card">
+        <img src="travelingPhotos/IMG_1066.jpeg" alt="London, U.K">
+        <div class="place-label">London, U.K</div>
       </div>
-      <div class="travel-card photo-slot">
-        <div class="photo-placeholder">INSERT PHOTO<span>place-4.jpg</span></div>
-        <div class="place-label">PLACE NAME</div>
+      <div class="travel-card">
+        <img src="travelingPhotos/04999F41-BAE1-4D35-B610-90067C00C3D4_1_102_o.jpeg" alt="Anacapri, Italy">
+        <div class="place-label">Anacapri, Italy</div>
       </div>
     </div>
-
+    
     <!-- ── India 2026 · Featured Subsection ── -->
     <div class="india-block">
       <div class="india-label">MOST MEANINGFUL TRIP &nbsp;·&nbsp; INDIA 2026</div>
 
       <!-- CUSTOMIZE: Your India trip summary -->
       <div class="india-summary">
-        <p>[Write your India trip summary here — what you did, where you went, what you felt, what you learned. This is the most personal section, so let it breathe.]</p>
-        <p>[Add a second paragraph if you'd like. Strong, Rishika for anything you want to call out.]</p>
-      </div>
-
-      <!-- Full-width hero photo for India -->
-      <div class="india-hero photo-slot">
-        <div class="photo-placeholder">INSERT HERO PHOTO<span>india-hero.jpg · recommended 3:1 landscape</span></div>
-      </div>
+        <p>The trip I most want to talk about is my recent one to India, where I served as a <strong>Site Leader through NYU's Alternative Breaks program</strong>. We worked with several NGOs, volunteering at organizations focused on improving the lives of street children, and spent a few days in rural India working alongside a school community. This trip stood out to me deeply: I connected with my ethnic roots and found so much beauty in the simplicity, sustainability, and creativity of daily life there.</p>
+        <p>In the rural village, people conserved energy by using metal reflectors to heat their pans and cook without any gas. They reused water from around the village for irrigation. And to support local women living in poverty, the community built a clothing business that employed them and sold their work. I was inspired by how simple life was, yet how intentionally it centered on <em>empowering children, women, and the community</em> in a sustainable way.</p>
+     </div>
 
       <!-- CUSTOMIZE: India gallery — add up to 6 photos, duplicate photo-slot blocks -->
       <div class="photo-grid-3">
         <div class="photo-slot">
-          <div class="photo-placeholder">INSERT PHOTO<span>india-1.jpg</span></div>
-          <div class="photo-caption">CAPTION</div>
+          <img src="travelingPhotos/IMG_5409.JPEG.png" alt="Children's NGO, New Delhi">
+          <div class="photo-caption">CHILDREN'S NGO · NEW DELHI</div>
         </div>
         <div class="photo-slot">
-          <div class="photo-placeholder">INSERT PHOTO<span>india-2.jpg</span></div>
-          <div class="photo-caption">CAPTION</div>
+          <img src="travelingPhotos/IMG_1616.JPG" alt="Café Sheroes, Agra">
+          <div class="photo-caption">CAFÉ SHEROES · AGRA</div>
         </div>
         <div class="photo-slot">
-          <div class="photo-placeholder">INSERT PHOTO<span>india-3.jpg</span></div>
-          <div class="photo-caption">CAPTION</div>
+          <img src="travelingPhotos/IMG_2585.jpeg" alt="Jaipur, Rajasthan">
+          <div class="photo-caption">JAIPUR · RAJASTHAN</div>
         </div>
         <div class="photo-slot">
-          <div class="photo-placeholder">INSERT PHOTO<span>india-4.jpg</span></div>
-          <div class="photo-caption">CAPTION</div>
+          <img src="travelingPhotos/IMG_2558.jpeg" alt="Sacred Cows, Rural Jaipur">
+          <div class="photo-caption">SACRED COWS · RURAL JAIPUR</div>
         </div>
         <div class="photo-slot">
-          <div class="photo-placeholder">INSERT PHOTO<span>india-5.jpg</span></div>
-          <div class="photo-caption">CAPTION</div>
+          <img src="travelingPhotos/IMG_1864.jpeg" alt="Elephant Sanctuary, Mathura">
+          <div class="photo-caption">ELEPHANT SANCTUARY · MATHURA</div>
         </div>
         <div class="photo-slot">
-          <div class="photo-placeholder">INSERT PHOTO<span>india-6.jpg</span></div>
-          <div class="photo-caption">CAPTION</div>
+          <img src="travelingPhotos/IMG_2382.JPG" alt="Vatsalya Foundation">
+          <div class="photo-caption">VATSALYA FOUNDATION · NGO</div>
         </div>
       </div>
     </div>
@@ -286,28 +305,27 @@ section{position:relative;z-index:1;}
       <div class="life-line"></div>
     </div>
     <div class="section-prose">
-      <!-- CUSTOMIZE: Your background in filmmaking and what draws you to visual storytelling -->
-      <p>[Write about your passion for filmmaking here — when it started, what it means to you, what kinds of stories you want to tell.]</p>
-      <p>[Add more context if needed — projects, style, inspirations.]</p>
+      <p>Since I was a young child, whenever I watched a movie or a TV show, the only thing I could think about was <strong>what was happening behind the camera</strong> — the positioning of the actors, the lighting, the writers at work, and how all of it gets shaped into cinema. That fascination with storytelling has stayed close to me ever since. It's become one of the main ways I connect with my friends and family day to day.</p>
+      <p>Naturally, I started creating my own things early on — parodies and music videos with my friends and sister. As I grew up, that play turned into a real focus on filmmaking and photography. I took a <strong>year-long film course</strong> in my senior year of high school and then landed a <strong>film internship</strong> that following summer. That experience showed me how much storytelling matters, not just in cinema but in life. I got to see everything that happens around the camera, and it sparked my creativity in a way nothing else had.</p>
+      <p>I've come to believe that storytelling is one of the <em>most powerful forms of communication</em> we have. It's shaped how I approach everyday things — how I tell a story to my friends, or how I present the work I've been doing. I don't just share information; I try to shape it into something that <em>communicates why it matters</em>.</p>
     </div>
 
-    <!-- CUSTOMIZE: Add/remove photo-slot blocks. 2-column grid. -->
     <div class="photo-grid-2">
       <div class="photo-slot">
-        <div class="photo-placeholder">INSERT PHOTO<span>film-1.jpg</span></div>
-        <div class="photo-caption">CAPTION</div>
+        <img src="filmphotos/20240604_164023.JPG" alt="Behind the scenes on set">
+        <div class="photo-caption">BEHIND THE CAMERA · ON SET · DIRECTOR ROLE</div>
       </div>
       <div class="photo-slot">
-        <div class="photo-placeholder">INSERT PHOTO<span>film-2.jpg</span></div>
-        <div class="photo-caption">CAPTION</div>
+        <img src="filmphotos/20240604_164027.JPG" alt="Film production, on set">
+        <div class="photo-caption">BEHIND THE CAMERA · ON SET · DIRECTOR ROLE</div>
       </div>
       <div class="photo-slot">
-        <div class="photo-placeholder">INSERT PHOTO<span>film-3.jpg</span></div>
-        <div class="photo-caption">CAPTION</div>
+        <img src="filmphotos/IMG_20240308_161447.JPG" alt="Film internship, March 2024">
+        <div class="photo-caption">PRODUCTION · MARCH 2024</div>
       </div>
       <div class="photo-slot">
-        <div class="photo-placeholder">INSERT PHOTO<span>film-4.jpg</span></div>
-        <div class="photo-caption">CAPTION</div>
+        <img src="filmphotos/BC5301EF-956E-4206-99A3-B4457E32287D_1_105_c.jpeg" alt="On location, filmmaking">
+        <div class="photo-caption">BEHIND THE CAMERA · ON SET · DIRECTOR OF PHOTOGRAPHY ROLE</div>
       </div>
     </div>
   </div>
@@ -324,10 +342,10 @@ section{position:relative;z-index:1;}
       <div class="life-line"></div>
     </div>
     <div class="section-prose">
-      <!-- CUSTOMIZE: Piano since age 5, music making, what music means to you -->
-      <p>I've played piano since I was <strong>five years old</strong>. [Continue — what it was like growing up with it, how it felt, what genres you explored.]</p>
-      <p>[Talk about how you've evolved from playing to making music — production, genres, tools you use, what you like to create now.]</p>
-    </div>
+ <!-- CUSTOMIZE: Piano since age 5, music making, what music means to you -->
+      <p>I've played piano since I was <strong>five years old</strong>. It started with me just hitting keys, trying to find a melody, before I ever took a real lesson. That instinct to <em>make something</em> out of the notes never left. Over the years it turned into formal training, and I eventually earned my <strong>Collegiate Piano Diploma through the American College of Musicians (National Guild of Piano Teachers)</strong>.</p>
+      <p>Piano became the way I processed things. It was how I expressed emotions I couldn't always put into words, and it kept my creativity alive in a way nothing else did. The instrument wasn't just something I played — it was somewhere I went.</p>
+      <p>Since starting college, without a piano easily within reach, I've channeled that same impulse into producing music on my computer. I've been making beats and learning how different samples and sounds can shape a feeling — <em>how a single texture can carry an entire emotion</em>. It's a different toolkit, but it comes from the same place: the drive to turn sound into something that means something.</p>    </div>
 
     <div class="spotify-block">
       <!-- Embedded Spotify player -->
@@ -362,36 +380,34 @@ section{position:relative;z-index:1;}
       <div class="life-line"></div>
     </div>
     <div class="section-prose">
-      <!-- CUSTOMIZE: PNW hiking background + NYC Citi Bike -->
-      <p>Growing up in the <strong>Pacific Northwest</strong> gave me a baseline of trails, mountains, and overcast skies I'll never stop chasing. [Continue — favorite hikes, what the PNW means to you, specific trails or moments.]</p>
-      <p>In NYC, <em>Citi Bike</em> is my answer. [Continue — how you use it, favorite routes, what it gives you in the city.]</p>
+      <p>Growing up in the <strong>Pacific Northwest</strong>, nature has always been a core part of who I am. The trails, hikes, and mountains have shaped me in important ways. For me, being outdoors has been a way to <em>process emotions, work through my thoughts, and understand life a little more clearly</em>. There's a kind of quiet in the PNW that lets you actually hear yourself think.</p>
+      <p>Now that I'm in NYC for college, I've traded a lot of that easy access to beautiful parks for something entirely different. The city has its own charm, and it's taught me a completely different set of life skills. My current favorite things to do are <em>city biking</em> and exploring its corners — finding the small parks and quiet places that most people rush past.</p>    
     </div>
 
-    <!-- CUSTOMIZE: Add photos — 3-column grid. Duplicate photo-slot blocks as needed. -->
     <div class="photo-grid-3">
       <div class="photo-slot">
-        <div class="photo-placeholder">INSERT PHOTO<span>outdoors-1.jpg</span></div>
-        <div class="photo-caption">LOCATION</div>
+        <img src="naturephotos/IMG_4155.jpeg" alt="Pacific Northwest trails">
+        <div class="photo-caption">TRAILS · PNW</div>
       </div>
       <div class="photo-slot">
-        <div class="photo-placeholder">INSERT PHOTO<span>outdoors-2.jpg</span></div>
-        <div class="photo-caption">LOCATION</div>
+        <img src="naturephotos/IMG_4558.jpeg" alt="Pacific Northwest landscape">
+        <div class="photo-caption">MOUNTAINS · PNW</div>
       </div>
       <div class="photo-slot">
-        <div class="photo-placeholder">INSERT PHOTO<span>outdoors-3.jpg</span></div>
-        <div class="photo-caption">LOCATION</div>
+        <img src="naturephotos/IMG_4271.jpeg" alt="Hiking in the PNW">
+        <div class="photo-caption">HIKING · POO POO POINT</div>
       </div>
       <div class="photo-slot">
-        <div class="photo-placeholder">INSERT PHOTO<span>outdoors-4.jpg</span></div>
-        <div class="photo-caption">LOCATION</div>
+        <img src="naturephotos/IMG_4209.jpeg" alt="Discovery Park, Seattle">
+        <div class="photo-caption">DISCOVERY PARK · SEATTLE</div>
       </div>
       <div class="photo-slot">
-        <div class="photo-placeholder">INSERT PHOTO<span>outdoors-5.jpg</span></div>
-        <div class="photo-caption">LOCATION</div>
+        <img src="naturephotos/IMG_3535.jpeg" alt="City biking, NYC">
+        <div class="photo-caption">CITY BIKING · NYC</div>
       </div>
       <div class="photo-slot">
-        <div class="photo-placeholder">INSERT PHOTO<span>outdoors-6.jpg</span></div>
-        <div class="photo-caption">LOCATION</div>
+        <img src="naturephotos/IMG_2317.jpeg" alt="Jefferson Market Garden, NYC">
+        <div class="photo-caption">JEFFERSON MARKET GARDEN · NYC</div>
       </div>
     </div>
   </div>
@@ -409,8 +425,8 @@ section{position:relative;z-index:1;}
     </div>
     <!-- CUSTOMIZE: Replace with something that actually resonates with you -->
     <div class="life-quote">
-      <p class="quote-text">"The most important thing is to not stop questioning. Curiosity has its own reason for existing."</p>
-      <div class="quote-attr">— ALBERT EINSTEIN</div>
+      <p class="quote-text">"Life is about courage and going into the unknown."</p>
+      <div class="quote-attr">— ‘The Secret Life of Walter Mitty’</div>
     </div>
   </div>
 </section>
