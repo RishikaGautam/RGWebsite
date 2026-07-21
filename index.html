@@ -544,7 +544,7 @@ footer{position:relative;z-index:1;padding:1.5rem 3rem;border-top:1px solid rgba
         <ul class="project-bullets">
           <li>NLP research analyzing hedging and certainty language in early news coverage; led model implementation, building TF-IDF and SBERT classifiers with inter-annotator agreement and error analysis.</li>
         </ul>
-        <div class="project-links"><a href="papers/Final Paper.pdf" class="project-link">PDF</a></div>
+        <div class="project-links"><a href="papers/FinalPaper.pdf" class="project-link">PDF</a></div>
       </div>
       <div class="project-card">
         <div class="project-num">UNIT-05 · JAN – MAY 2025</div>
@@ -731,8 +731,11 @@ document.addEventListener('restart-terminal', function restart(){
 const cur = document.getElementById('cursor');
 const ring = document.getElementById('cursor-ring');
 let rx=0, ry=0, curX=0, curY=0;
-document.addEventListener('mousemove',e=>{curX=e.clientX;curY=e.clientY;cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
-(function ac(){requestAnimationFrame(ac);rx+=(curX-rx)*0.12;ry+=(curY-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';})();
+document.addEventListener('mousemove',e=>{
+  curX=e.clientX;curY=e.clientY;
+  cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
+  ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px';
+});
 
 // ── Scroll fade ───────────────────────────────────────────────
 const obs = new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
